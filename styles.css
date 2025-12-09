@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: roboto, lato, Arial, sans-serif;
+}
+
+.book-card {
+    width: 250px;
+    height: 250px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 4px 1px rgb(182, 182, 182);
+    padding: 10px;
+    margin: 10px;
+}
+
+#books-container {
+    display: flex;
+}
+
+#new-book {
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+#new-book div  {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+#create-btn {
+    margin: 15px 20px 2px 20px;
+}
