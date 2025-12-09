@@ -5,6 +5,11 @@
     font-family: roboto, lato, Arial, sans-serif;
 }
 
+#container {
+    margin: auto;
+    max-width: 600px;
+}
+
 .book-card {
     width: 250px;
     height: 250px;
@@ -31,6 +36,38 @@
     flex-direction: column;
 }
 
+#new-book div.radio-option {
+    display: flex;
+    flex-direction: row;
+}
+
+legend {
+    margin-top: 20px;
+    font-weight: 500;
+}
+
 #create-btn {
-    margin: 15px 20px 2px 20px;
+    width: 100%;
+    font-size: large;
+    font-weight: 600;
+    padding: 5px;
+    margin: 20px auto;
+    background-color: rgb(42, 80, 163);
+    color: white;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 1px 1px 4px 1px grey;
+}
+
+#create-btn:hover {
+    background-color: rgb(12, 62, 170);
+    cursor: pointer;
+}
+
+input {
+    border-radius: 8px;
+}
+
+label {
+    font-weight: 500;
 }
