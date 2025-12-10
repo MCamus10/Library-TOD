@@ -13,15 +13,15 @@
             <form id="new-book">
                 <div>
                     <label for="book-name">Book name</label>
-                    <input type="text" id="book-name" name="book-name"/>
+                    <input type="text" id="book-name" name="book-name" required/>
                 </div>
                 <div>
                     <label for="book-author">Author</label>
-                    <input type="text" id="book-author" name="book-author"/>
+                    <input type="text" id="book-author" name="book-author" required/>
                 </div>
                 <div>
                     <label for="book-pages">Pages</label>
-                    <input type="number" id="book-pages" name="book-pages"/>
+                    <input type="number" id="book-pages" name="book-pages" required/>
                 </div>
                 <div>
                     <legend>Have you read the book?</legend>
@@ -34,8 +34,8 @@
                         <label for="already-read">Yes</label>
                     </div>               
                 </div>
-            <button type="submit" id="create-btn">New Book</button>
-            <p id="total-books">Total books stored: </p>
+            <button type="submit" id="create-btn">Add Book</button>
+            <p id="total-books">Total books stored: <span id="book-count">0</span></p>
             </form>
         </div>
         <div id="table-container">
@@ -46,6 +46,7 @@
                     <th>Pages</th>
                     <th>Read</th>
                     <th>ID</th>
+                    <th></th>
                     <th></th>
                 </tr>
             </table>

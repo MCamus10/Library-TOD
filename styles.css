@@ -3,6 +3,7 @@
 :root {
     --btn-green: rgb(40, 116, 53);
     --btn-hover: rgb(16, 149, 38);
+    --light-green: rgb(152, 191, 170);
 }
 
 * {
@@ -21,7 +22,7 @@
 }
 
 #sidebar {
-    background-color: rgb(152, 191, 170);
+    background-color: var(--light-green);
     height: 100vh;
     padding: 50px 20px;
     box-shadow: 1px 0px 4px 1px rgb(204, 203, 203);
@@ -91,6 +92,7 @@ label {
 
 th {
     width: 150px;
+    background-color: var(--light-green);
 }
 
 tr {
@@ -103,14 +105,16 @@ td {
     padding: 10px 0px;
 }
 
-.remove-btn {
+.remove-btn,
+.toggle-btn {
     background-color: var(--btn-green);
     color: white;
     border-radius: 10px;
     padding: 5px 15px;
 }
 
-.remove-btn:hover {
+.remove-btn:hover,
+.toggle-btn:hover {
     background-color: var(--btn-hover);
     cursor: pointer;
 }

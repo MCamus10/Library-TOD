@@ -15,23 +15,23 @@ function addBookToLibrary(title, author, pages, read, id) {
 }
 
 //Add new book:
-const newBookForm = document.querySelector("#new-book");
+const newBookForm = document.getElementById("new-book");
 newBookForm.addEventListener("submit", (e)=>{
     e.preventDefault();
-    const title = document.querySelector("#book-name").value;
-    const author = document.querySelector("#book-author").value;
-    const pages = document.querySelector("#book-pages").value;
+    const title = document.getElementById("book-name").value;
+    const author = document.getElementById("book-author").value;
+    const pages = document.getElementById("book-pages").value;
     const read  = document.querySelector("input[name='is-read']:checked").value === "true"; //convierte bookRead a boolean.
-    const uniqueId = crypto.randomUUID();
+    const uniqueId = `book-${crypto.randomUUID()}`;
     addBookToLibrary(title, author, pages, read, uniqueId);
     document.getElementById("new-book").reset();
 
     //Books quantity
-    const booksQtty = document.querySelector("#total-books");
-    booksQtty.textContent = `Total books stored: ${myLibrary.length}`;
+    const booksQtty = document.getElementById("book-count");
+    booksQtty.textContent = myLibrary.length;
 
     //Add book to table
-    const booksTable = document.querySelector("#books-table");
+    const booksTable = document.getElementById("books-table");
     const bookRow = document.createElement("tr");
     bookRow.id = uniqueId;
     
@@ -48,6 +48,8 @@ newBookForm.addEventListener("submit", (e)=>{
     bookRow.appendChild(bookPages);
 
     const bookRead = document.createElement("td");
+    bookRead.className = "read-status";
+    bookRead.id = uniqueId;
     bookRead.textContent = read ? "Yes" : "No";
     bookRow.appendChild(bookRead);
 
@@ -64,21 +66,61 @@ newBookForm.addEventListener("submit", (e)=>{
     removeColumn.appendChild(removeButton);
     bookRow.appendChild(removeColumn);
 
+    //Add toggle read status button
+    const toggleColumn = document.createElement("td");
+    const toggleButton = document.createElement("button");
+    toggleButton.className = "toggle-btn";
+    toggleButton.id = uniqueId;
+    if (read) {
+        toggleButton.textContent = "Mark as not read";
+    } else {
+        toggleButton.textContent = "Mark as read";
+    };
+    toggleColumn.appendChild(toggleButton);
+    bookRow.appendChild(toggleColumn);
+
     booksTable.appendChild(bookRow);
 });
 
 //Remove book functionality
 document.body.addEventListener("click", (e)=>{
     if (e.target.matches(".remove-btn")){
-        const bookToDelete = e.target.id;
-        const index = myLibrary.findIndex(book => book.id === bookToDelete);
+        const bookToDeleteId = e.target.id;
+        const index = myLibrary.findIndex(book => book.id === bookToDeleteId);
         myLibrary.splice(index, 1);
-        const rowToDelete = document.getElementById(bookToDelete);
-        document.getElementById(bookToDelete).remove();
-        const booksQtty = document.querySelector("#total-books");
-        booksQtty.textContent = `Total books stored: ${myLibrary.length}`;
+        document.getElementById(bookToDeleteId).remove();
+        //Update book counter
+        const booksQtty = document.getElementById("book-count");
+        booksQtty.textContent = myLibrary.length;
     };
 });
+
+//Toggle read status functionality
+document.body.addEventListener("click", (e)=>{
+    if (e.target.matches(".toggle-btn")){
+        //Toggle button text
+        if (e.target.textContent === "Mark as read"){
+            e.target.textContent = "Mark as not read";
+        } else {
+            e.target.textContent = "Mark as read";
+        }
+        //Toggle read status
+        const bookToToggleId = e.target.id;
+        const index = myLibrary.findIndex(book => book.id === bookToToggleId);
+        myLibrary[index].read = !myLibrary[index].read;
+        const readContent = document.querySelector(".read-status#" + myLibrary[index].id);
+    
+        if (readContent === "Yes"){
+            readContent.textContent = "No"
+        } else {
+            readContent.textContent = "Yes"        
+        };
+        
+    };
+});
+
+
+
 
 
 
