@@ -8,10 +8,9 @@
 </head>
 <body>
     <div id="container">
-        <h1>Library</h1>
-        <form id="new-book">
-            <fieldset>
-                <legend>Create New Book</legend>
+        <div id="sidebar">
+            <h1>Library</h1>
+            <form id="new-book">
                 <div>
                     <label for="book-name">Book name</label>
                     <input type="text" id="book-name" name="book-name"/>
@@ -37,12 +36,21 @@
                 </div>
             <button type="submit" id="create-btn">New Book</button>
             <p id="total-books">Total books stored: </p>
-            </fieldset>
-        </form>
-
-        <button id="show-btn" type="button">Show Books</button>
+            </form>
+        </div>
+        <div id="table-container">
+            <table id="books-table">
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Pages</th>
+                    <th>Read</th>
+                    <th>ID</th>
+                </tr>
+            </table>
+        </div>
+        <!-- <button id="show-btn" type="button">Show Books</button> -->
     </div>
-    <div id="books-container"></div>
 
 <script src="./script.js"></script>
 </body>
