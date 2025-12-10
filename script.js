@@ -110,7 +110,7 @@ document.body.addEventListener("click", (e)=>{
         myLibrary[index].read = !myLibrary[index].read;
         const readContent = document.querySelector(".read-status#" + myLibrary[index].id);
     
-        if (readContent === "Yes"){
+        if (readContent.textContent === "Yes"){
             readContent.textContent = "No"
         } else {
             readContent.textContent = "Yes"        
