@@ -30,9 +30,8 @@ newBookForm.addEventListener("submit", (e)=>{
     const booksQtty = document.querySelector("#total-books");
     booksQtty.textContent = `Total books stored: ${myLibrary.length}`;
 
-    //Ad d book to table
+    //Add book to table
     const booksTable = document.querySelector("#books-table");
-    // for (let i = 0; i < myLibrary.length; i++) {
     const bookRow = document.createElement("tr");
     bookRow.id = uniqueId;
     
@@ -55,20 +54,33 @@ newBookForm.addEventListener("submit", (e)=>{
     const bookId = document.createElement("td");
     bookId.textContent = uniqueId;
     bookRow.appendChild(bookId);
+
+    //Remove button
+    const removeColumn = document.createElement("td");
+    const removeButton = document.createElement("button");
+    removeButton.className = "remove-btn";
+    removeButton.id = uniqueId;
+    removeButton.textContent = "Remove";
+    removeColumn.appendChild(removeButton);
+    bookRow.appendChild(removeColumn);
+
     booksTable.appendChild(bookRow);
-
-  /*   const removeButton = document.createElement("button");
-    removeButton.className = "delete-book-btn";
-    removeButton.textContent = "Delete";
-    removeButton.addEventListener("click", ()=>{
-        //code to remove book;
-    })
-    bookCard.appendChild(removeButton); */
-
-    
-
-    // };
 });
+
+//Remove book functionality
+document.body.addEventListener("click", (e)=>{
+    if (e.target.matches(".remove-btn")){
+        const bookToDelete = e.target.id;
+        const index = myLibrary.findIndex(book => book.id === bookToDelete);
+        myLibrary.splice(index, 1);
+        const rowToDelete = document.getElementById(bookToDelete);
+        document.getElementById(bookToDelete).remove();
+        const booksQtty = document.querySelector("#total-books");
+        booksQtty.textContent = `Total books stored: ${myLibrary.length}`;
+    };
+});
+
+
 
 
 
