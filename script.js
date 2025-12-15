@@ -1,17 +1,35 @@
-const myLibrary = new Array;
+const myLibrary = [];
 
-function Book(title, author, pages, read, id) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.id = id;
+class Book {
+    constructor(title, author, pages, read, id) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        this.id = id;
+    }
+
+    toggleRead() {
+        this.read = !this.read;
+    }
+
+    getReadText() {
+        return this.read ? "Yes" : "No";
+    }
+
+    getToggleButtonText() {
+        return this.read ? "Mark as not read" : "Mark as read"
+    }
 }
 
-function addBookToLibrary(title, author, pages, read, id) {
-    const book = new Book(title, author, pages, read, id);
-    myLibrary.push(book);
-
+function addBookToLibrary(data) {
+    myLibrary.push(new Book(
+        data.title,
+        data.author,
+        data.pages,
+        data.read,
+        data.id
+    ));
 }
 
 //Add new book:
@@ -23,7 +41,7 @@ newBookForm.addEventListener("submit", (e)=>{
     const pages = document.getElementById("book-pages").value;
     const read  = document.querySelector("input[name='is-read']:checked").value === "true"; //convierte bookRead a boolean.
     const uniqueId = `book-${crypto.randomUUID()}`;
-    addBookToLibrary(title, author, pages, read, uniqueId);
+    addBookToLibrary({title, author, pages, read, id: uniqueId});
     document.getElementById("new-book").reset();
 
     //Books quantity
@@ -49,7 +67,7 @@ newBookForm.addEventListener("submit", (e)=>{
 
     const bookRead = document.createElement("td");
     bookRead.className = "read-status";
-    bookRead.id = uniqueId;
+    bookRead.dataset.id = uniqueId;
     bookRead.textContent = read ? "Yes" : "No";
     bookRow.appendChild(bookRead);
 
@@ -70,7 +88,7 @@ newBookForm.addEventListener("submit", (e)=>{
     const toggleColumn = document.createElement("td");
     const toggleButton = document.createElement("button");
     toggleButton.className = "toggle-btn";
-    toggleButton.id = uniqueId;
+    toggleButton.dataset.id = uniqueId;
     if (read) {
         toggleButton.textContent = "Mark as not read";
     } else {
@@ -97,29 +115,20 @@ document.body.addEventListener("click", (e)=>{
 
 //Toggle read status functionality
 document.body.addEventListener("click", (e)=>{
-    if (e.target.matches(".toggle-btn")){
-        //Toggle button text
-        if (e.target.textContent === "Mark as read"){
-            e.target.textContent = "Mark as not read";
-        } else {
-            e.target.textContent = "Mark as read";
-        }
-        //Toggle read status
-        const bookToToggleId = e.target.id;
-        const index = myLibrary.findIndex(book => book.id === bookToToggleId);
-        myLibrary[index].read = !myLibrary[index].read;
-        const readContent = document.querySelector(".read-status#" + myLibrary[index].id);
-    
-        if (readContent.textContent === "Yes"){
-            readContent.textContent = "No"
-        } else {
-            readContent.textContent = "Yes"        
-        };
-        
-    };
+    if (e.target.matches(".toggle-btn")) {
+        const bookId = e.target.dataset.id;
+
+        const book = myLibrary.find(book => book.id === bookId);
+        if (!book) return;
+
+        book.toggleRead();
+
+        e.target.textContent = book.getToggleButtonText();
+
+        const readContent = document.querySelector(`.read-status[data-id="${book.id}"]`);
+        readContent.textContent = book.getReadText();
+    } else return;
 });
-
-
 
 
 
